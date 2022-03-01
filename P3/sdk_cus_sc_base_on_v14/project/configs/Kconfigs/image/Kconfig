@@ -1,0 +1,37 @@
+menu "Image"
+
+config IMAGE_CONFIG
+    string "Image Partition Config"
+    default "spinand.squashfs.partition.config"
+
+choice
+    prompt "Flash Size"
+    default FLASE_SIZE_NONE
+
+    config FLASH_SIZE_NONE
+        bool "None"
+
+    config FLASH_SIZE_8M
+        bool "8M"
+
+    config FLASH_SIZE_16M
+        bool "16M"
+
+    config FLASH_SIZE_32M
+        bool "32M"
+endchoice
+
+config FLASH_SIZE
+    string
+    default "" if FLASH_SIZE_NONE
+    default 8M if FLASH_SIZE_8M
+    default 16M if FLASH_SIZE_16M
+    default 32M if FLASH_SIZE_32M
+
+config ONEBIN_BOOT_FLASH_TYPE
+    string "boot.bin burn in which flash(nor/spinand) when emmc boot"
+    default ""
+    ---help---
+	if the flag is not "nor", it's "nand"
+
+endmenu
